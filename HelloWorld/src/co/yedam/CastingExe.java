@@ -22,6 +22,7 @@ public class CastingExe {
 		
 		System.out.printf("\nnum4의 값은 %5d, num4의 값은 %.2f %s", num3, num4, "입니다"); //d 정수, f 실수 s 문자열 
 		//git 테스트?
+		//ddd
 	}
 
 }
