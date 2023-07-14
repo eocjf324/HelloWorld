@@ -6,7 +6,7 @@ public class ConditionExe2 {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		while (true) {
-			System.out.println("메뉴를 선택하세요(숫자를 입력)>> ");
+			System.out.print("메뉴를 선택하세요(숫자를 입력)>> ");
 			String menu = scan.nextLine();
 
 			// switch,
