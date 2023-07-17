@@ -33,8 +33,7 @@ public class ArrayPracticeExe {
 				scores = new int[studentNum]; //학생수만큼 배열선언
 				break;
 			case 2:
-				if(scores == null) {
-					System.out.println("학생수를 입력하세요");
+				if(nullCheck() == 1) {
 					continue;
 				}
 				for(int i = 0 ; i < scores.length; i++) {
@@ -44,8 +43,7 @@ public class ArrayPracticeExe {
 				}
 				break;
 			case 3:
-				if(scores == null) {
-					System.out.println("점수가없습니다.");
+				if(nullCheck() == 1) {
 					continue;
 				}
 				for(int i =0; i< scores.length; i++) {
@@ -57,12 +55,9 @@ public class ArrayPracticeExe {
 				}
 				break;
 			case 4:
-//				if(scores == null) {
-//					System.out.println("점수가 없습니다.");
-//					continue;
-//				}
-				if(nullCheck() == 1)
-					break;
+				if(nullCheck() == 1) {
+					continue;
+				}
 				System.out.printf("최고 점수: %d\n", max);
 				System.out.printf("평균 점수: %.1f\n", (double) sum / scores.length );
 				break;
@@ -75,7 +70,7 @@ public class ArrayPracticeExe {
 	}
 	public static int nullCheck() {
 		if(scores == null) {
-			System.out.println("배열이 null입니다.");
+			System.out.println("배열에 값이 없습니다.");
 			return 1;
 		}
 		else
