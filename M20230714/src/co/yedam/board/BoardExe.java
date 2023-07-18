@@ -50,6 +50,8 @@ public class BoardExe {
 	}
 
 	private static void list() {
+	
+//		System.out.println(cnt);
 //		for (int i = 0; i < boards.length; i++) {
 //			int cnt =0;
 //			if (boards[i] != null) {
@@ -66,9 +68,17 @@ public class BoardExe {
 			System.out.printf("현재페이지/총페이지 %d/%d\n", cnt,boards.length /5);
 			System.out.print("이동할 페이지 선택>");
 			int n= Integer.parseInt(scan.nextLine());
-			cnt =1;
-			cnt *= n;
+			cnt = n;
+//			int cnt =0;
+//			for(int i=0; i< boards.length ;i++) {
+//				if(boards[i] != null) {
+//					cnt++;
+//				}
+//				
+//			}
+		
 		}
+		
 		
 		
 		

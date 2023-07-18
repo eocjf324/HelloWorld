@@ -7,9 +7,6 @@ public class ForConditionExe {
 
 	} // end of main()
 	
-	
-	
-	
 	public static void showCalendar(int month) {
 		String[] days = { "Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat" };
 		// TODO Auto-generated method stub
