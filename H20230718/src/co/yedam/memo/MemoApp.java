@@ -17,11 +17,10 @@ public class MemoApp {
 
 	boolean addMemo(Memo memo) {
 
-		if (memoNumber >= 2) { // 등록할 공간 부족 => 실패.
+		if (memoNumber >= 10) { 
 			return false;
 		}
-		memos[memoNumber++
-		      ] = memo;
+		memos[memoNumber++ ] = memo;
 		return true;
 	}
 	boolean editMemo(String num, String content) {
@@ -51,13 +50,10 @@ public class MemoApp {
 	String findMemo(String num) {
 		for (int i = 0; i < memos.length; i++) {
 			if (memos[i] != null && memos[i].memoNum.equals(num)) {
-
 				String result =memos[i].content; 
 				return result;
 			}
 		}
 		return null;
-	
-		
 	}
 }

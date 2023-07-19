@@ -23,6 +23,7 @@ public class MemoAppExe {
 				String content = scan.next();
 				String date = scan.next();
 				scan.nextLine();
+
 				Memo memo = new Memo(num, content, date);
 				// app.addMemo(memo);
 
@@ -34,35 +35,37 @@ public class MemoAppExe {
 
 			} else if (choose == 2) {
 
-//				boolean check =true;
+				boolean check = true;
+				System.out.println("메모수정");
+				System.out.print("번호입력>>");
+				String num2 = scan.nextLine();
+
+				for (int i = 0; i < app.memos.length; i++) {
+//					if (app.memos[i] != null && app.memos[i].equals(num2)) {
+					if (app.memos[i] != null && app.memos[i].memoNum.equals(num2)) {
+						System.out.print("수정할 메모 입력>> ");
+						String str2 = scan.nextLine();
+						app.memos[i].setContent(num2);
+						;
+						System.out.println("수정되었습니다.");
+						check = false;
+					}
+				}
+				if (check == true) {
+					System.out.println("회원번호가 없습니다.");
+				}
+				//// 클래스 매개변수 활용
 //				System.out.println("메모수정");
 //				System.out.print("번호입력>>");
 //				String num = scan.nextLine();
-//				
-//				for (int i = 0; i < app.memos.length; i++) {
-//					if (app.memos[i] != null && app.memos[i].memoNum.equals(num)) {
-//						System.out.print("수정할 메모 입력>> ");
-//						String str = scan.nextLine();
-//						app.memos[i].setContent(num2);;						
-//						System.out.println("수정되었습니다.");
-//						check = false;
-//					}
-//				}
-//				if (check == true) {
+//				System.out.print("수정할 메모 입력>> ");
+//				String str = scan.nextLine();
+//
+//				if (app.editMemo(num, str)) {
+//					System.out.println("수정되었습니다.");
+//				} else {
 //					System.out.println("회원번호가 없습니다.");
 //				}
-				//// 클래스 매개변수 활용
-				System.out.println("메모수정");
-				System.out.print("번호입력>>");
-				String num = scan.nextLine();
-				System.out.print("수정할 메모 입력>> ");
-				String str = scan.nextLine();
-
-				if (app.editMemo(num, str)) {
-					System.out.println("수정되었습니다.");
-				} else {
-					System.out.println("회원번호가 없습니다.");
-				}
 
 			} else if (choose == 3) {
 
@@ -80,7 +83,8 @@ public class MemoAppExe {
 				Memo[] ary = app.MemoList();
 				for (int i = 0; i < ary.length; i++) {
 					if (ary[i] != null) {
-						System.out.printf("메모번호: %s, 내용: %s, 날짜 %s\n", ary[i].memoNum, ary[i].content, ary[i].date);
+						System.out.printf("메모번호: %s, 내용: %s, 날짜 %s\n", ary[i].getMemoNum(), ary[i].content,
+								ary[i].date);
 					}
 				}
 			} else if (choose == 5) {
@@ -93,9 +97,9 @@ public class MemoAppExe {
 //					System.out.println("회원번호가 없습니다.");
 //				}
 				String result = app.findMemo(str);
-				if(result == null) {
+				if (result == null) {
 					System.out.println("회원번호가 없습니다.");
-				}else {
+				} else {
 					System.out.printf("회원번호: %s, 메모내용: %s\n", str, result);
 				}
 			} else if (choose == 6) {
