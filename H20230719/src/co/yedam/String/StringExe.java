@@ -18,11 +18,16 @@ public class StringExe {
 	}
 
 	static String checkGender(String no) {
-		System.out.println(no);
-		String year =no.substring(0, 2);
-		String check =no.substring(0, 1);
-		char gender = no.charAt(7);
+
+		String no2 = no.replace("-", "");  //하이픈 제거
+		String no3 = no2.replace(" ","");  //공백 제거
+		
+		String year  = no3.substring(0, 2); //출생년도 
+		String check = no3.substring(0, 1); //성별 확인
+		char gender  = no3.charAt(6);       //성별 체크 
 		System.out.printf("출생년도 : %s, 성별확인 : %c\n", year, gender);
+		System.out.println(no3);
+		
 		if (check.equals("9") ) {
 			switch (gender) {
 			case '1':
