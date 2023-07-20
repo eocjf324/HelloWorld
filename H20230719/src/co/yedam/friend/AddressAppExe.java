@@ -11,109 +11,128 @@ public class AddressAppExe {
 		String name;
 		String phone;
 		boolean run = true;
+		int choose;
 		while (run) {
 			System.out.println("1.등록 2.목록 3.수정 4.삭제 5.단건조회 6.종료");
 			System.out.print("번호입력>");
-			int choose = Integer.parseInt(scan.nextLine());
 
-			if (choose == 1) {
-				System.out.println("등록");
-				System.out.println("1.친구 2.회사 3.학교");
-				System.out.print("번호입력>");
-				int choose2 = Integer.parseInt(scan.nextLine());
-				if (choose2 == 1) {
-					System.out.print("친구(이름 폰번호 2개 입력)>>");
-					name = scan.next();
-					phone = scan.next();
-					scan.nextLine();
-
-					
-					if (app.addFriend(new Friend(name, phone))) {
-						System.out.println("등록되었습니다.");
-					} else {
-						System.out.println("등록되지못했습니다.(저장공간 초과)");
-					}
-				} else if (choose2 == 2) {
-					System.out.println("회사");
-					System.out.print("친구(이름 폰번호 회사 부서 4개 입력)>>");
-					name = scan.next();
-					phone = scan.next();
-					String company = scan.next();
-					String dept = scan.next();
-					scan.nextLine();
-
-					if (app.addFriend(new Company(name, phone, company, dept))) {
-						System.out.println("등록되었습니다.");
-					} else {
-						System.out.println("등록되지못했습니다.(저장공간 초과)");
-					}
-				
-				} else if (choose2 == 3) {
-					System.out.println("학교");
-					System.out.print("친구(이름 폰번호 학교 전공 4개 입력)>>");
-					name = scan.next();
-					phone = scan.next();
-					String school = scan.next();
-					String major = scan.next(); 
-					scan.nextLine();
-
-					if (app.addFriend(new School(name, phone, school, major))) {
-						System.out.println("등록되었습니다.");
-					} else {
-						System.out.println("등록되지못했습니다.(저장공간 초과)");
-					}
-				}
-			} else if (choose == 2) {
-				System.out.println("목록");
-				Friend[] ary = app.friendList();
-
-				for (int i = 0; i < ary.length; i++) {
-					if (ary[i] != null) {
-						System.out.println(ary[i].showInfo());
-					}
-				}
-			} else if (choose == 3) {
-				System.out.println("수정");
-				System.out.println("이름입력>");
-				name = scan.nextLine();
-				System.out.println("폰번호 입력>");
-				phone = scan.nextLine();
-				
-				if(app.editFriend(name, phone)) {
-					System.out.println("수정되었습니다.");
-				}else {
-					System.out.println("수정되지않았습니다.(회원번호가 없습니다.)");
-				}
-				
-			} else if (choose == 4) {
-				System.out.println("삭제");
-				System.out.println("이름입력>");
-				name = scan.nextLine();
-				if(app.delFriend(name)) {
-					System.out.println("수정되었습니다.");
-				}else {
-					System.out.println("수정되지않았습니다.(회원번호가 없습니다.)");
-				}
-			} else if (choose == 5) {
-				System.out.println("단건조회");
-				System.out.println("이름입력>");
-				name = scan.nextLine();
-				
-				Friend view = app.findFriend(name);
-			
-				if(view == null) {
-					System.out.println("조회불가(회원번호가 없습니다.)");
-				}else {
-					System.out.println(view.showInfo());
-				}
-			} else if (choose == 6) {
-				run = false;
-				System.out.println("종료");
+			try {
+				choose = Integer.parseInt(scan.nextLine());
+			} catch (NumberFormatException n) {
+				System.out.println("숫자를 입력하세요 ");
+				// choose = 2;
+				continue;
 			}
+
+			try {
+				// 1 ~ 6 메뉴 이외의 메뉴 선택
+				if (choose < 1 || choose > 6) {
+					throw new MenuException(choose); //예외발생
+				}
+			} catch (MenuException e) {
+				e.showMessage();
+				continue;
+			}
+
+				if (choose == INIT_MENU.ADD) {
+					System.out.println("등록");
+					System.out.println("1.친구 2.회사 3.학교");
+					System.out.print("번호입력>");
+					int choose2 = Integer.parseInt(scan.nextLine());
+					if (choose2 == 1) {
+						System.out.print("친구(이름 폰번호 2개 입력)>>");
+						name = scan.next();
+						phone = scan.next();
+						scan.nextLine();
+
+						if (app.addFriend(new Friend(name, phone))) {
+							System.out.println("등록되었습니다.");
+						} else {
+							System.out.println("등록되지못했습니다.(저장공간 초과)");
+						}
+					} else if (choose2 == 2) {
+						System.out.println("회사");
+						System.out.print("친구(이름 폰번호 회사 부서 4개 입력)>>");
+						name = scan.next();
+						phone = scan.next();
+						String company = scan.next();
+						String dept = scan.next();
+						scan.nextLine();
+
+						if (app.addFriend(new Company(name, phone, company, dept))) {
+							System.out.println("등록되었습니다.");
+						} else {
+							System.out.println("등록되지못했습니다.(저장공간 초과)");
+						}
+
+					} else if (choose2 == 3) {
+						System.out.println("학교");
+						System.out.print("친구(이름 폰번호 학교 전공 4개 입력)>>");
+						name = scan.next();
+						phone = scan.next();
+						String school = scan.next();
+						String major = scan.next();
+						scan.nextLine();
+
+						if (app.addFriend(new School(name, phone, school, major))) {
+							System.out.println("등록되었습니다.");
+						} else {
+							System.out.println("등록되지못했습니다.(저장공간 초과)");
+						}
+					}
+				} else if (choose ==INIT_MENU.LIST) {
+					System.out.println("목록");
+					Friend[] ary = app.friendList();
+
+					for (int i = 0; i < ary.length; i++) {
+						if (ary[i] != null) {
+							System.out.println(ary[i].showInfo());
+						}
+					}
+				} else if (choose == INIT_MENU.EDIT) {
+					System.out.println("수정");
+					System.out.println("이름입력>");
+					name = scan.nextLine();
+					System.out.println("폰번호 입력>");
+					phone = scan.nextLine();
+
+					if (app.editFriend(name, phone)) {
+						System.out.println("수정되었습니다.");
+					} else {
+						System.out.println("수정되지않았습니다.(회원번호가 없습니다.)");
+					}
+
+				} else if (choose == INIT_MENU.DEL) {
+					System.out.println("삭제");
+					System.out.println("이름입력>");
+					name = scan.nextLine();
+					if (app.delFriend(name)) {
+						System.out.println("수정되었습니다.");
+					} else {
+						System.out.println("수정되지않았습니다.(회원번호가 없습니다.)");
+					}
+				} else if (choose == INIT_MENU.SEARCH) {
+					System.out.println("단건조회");
+					System.out.println("이름입력>");
+					name = scan.nextLine();
+
+					Friend view = app.findFriend(name);
+
+					if (view == null) {
+						System.out.println("조회불가(회원번호가 없습니다.)");
+					} else {
+						System.out.println(view.showInfo());
+					}
+				} else if (choose == INIT_MENU.EXIT) {
+					run = false;
+					System.out.println("종료");
+				} //end of if문
+			
+
 		}
 
 	}// end of main
-	
+
 //	static String prompString(String msg) {
 //		
 //	}
