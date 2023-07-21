@@ -1,4 +1,4 @@
-package co.yeda.api;
+package co.yedam.api;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -18,7 +18,7 @@ public class StringExe {
 	}
 
 	static String checkGender(String no) {
-
+		
 		String no2 = no.replace("-", "");  //하이픈 제거
 		String no3 = no2.replace(" ","");  //공백 제거
 		
@@ -47,8 +47,6 @@ public class StringExe {
 			default:
 				return "에러";
 			}
-
 		}
-
 	}
 }

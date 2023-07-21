@@ -1,4 +1,4 @@
-package co.yeda.api;
+package co.yedam.api;
 
 public class Member {
 	int memberNo;
