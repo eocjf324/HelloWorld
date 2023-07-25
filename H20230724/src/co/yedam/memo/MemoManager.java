@@ -13,7 +13,7 @@ public class MemoManager {
 	Scanner scan = new Scanner(System.in);
 	List<Memo> memoStorage = new ArrayList<>();
 
-	//생성자
+	// 생성자
 	public MemoManager() {
 		readFromFile();
 	}
@@ -33,7 +33,7 @@ public class MemoManager {
 		}
 		return no + 1;
 	}
-	
+
 	// 1.등록기능
 	public void inputData() {
 		int no = getNextNo();
@@ -103,11 +103,10 @@ public class MemoManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}                                                                    
+	}
 
 	// 불러옴(객체)
-	private void readFromFile() {
-
+	public void readFromFile() {
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream("C:/temp/memo.db");
@@ -115,8 +114,9 @@ public class MemoManager {
 			memoStorage = (List<Memo>) ois.readObject();
 			ois.close();
 			fis.close();
-
+			System.out.println("학생정보를 불러옵니다.");
 		} catch (Exception e) {
+			
 //			e.printStackTrace();
 		}
 

@@ -8,9 +8,6 @@ public class MemoApp {
 		MemoManager manager = new MemoManager();
 		int menu = 0;
 		
-		double num1 = 7;
-		double num2 = 3;
-		System.out.println((int)(num1/ num2 * 1000));
 		boolean run = true;
 		while (run) {
 			manager.printMenu();
