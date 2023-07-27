@@ -12,7 +12,6 @@ public class ByeBufExe {
 		InputStream is = new FileInputStream("C:/temp/image.png");
 		OutputStream os = new FileOutputStream("C:/temp/copy.png");
 		
-		
 		System.out.println("start of prg.");
 		byte[] buf = new byte[100];
 		while(true) {

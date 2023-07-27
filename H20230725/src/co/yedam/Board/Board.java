@@ -17,7 +17,12 @@ public class Board implements Serializable{
 		this.writer = writer;
 		this.date = date;
 	}
-	
+	public void setNo(String no) {
+		this.no = no;
+	}
+	public String getNo() {
+		return no;
+	}
 	public String getHead() {
 		return head;
 	}
