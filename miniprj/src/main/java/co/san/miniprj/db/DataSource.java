@@ -16,15 +16,6 @@ public class DataSource { // 싱글톤 패턴
 	private String password;
 	public static Connection conn;
 
-//	private DataSource() { // private 외부에서 생성자 생성x
-//		try {
-//			Class.forName(driver);
-//			conn = DriverManager.getConnection(url, user, password);
-//			System.out.println("DB 연결 성공 !!!!");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			System.out.println("DB 연결 실패!!");
-//		}
-//	}
 	private DataSource() { // private 외부에서 생성자 생성x
 		try {
 			getProperty();
