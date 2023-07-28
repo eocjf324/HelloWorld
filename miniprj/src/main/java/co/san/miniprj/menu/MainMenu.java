@@ -13,13 +13,14 @@ public class MainMenu {
 	private MemberService ms = new MemberServiceImpl(); // DAO
 
 	private void mainTitle() {
-		System.out.println("==== 회원관리 ====");
+		System.out.println("==== 게시판관리 ====");
 		System.out.println("==1.전체회원 조회==");
 		System.out.println("==2.회원한명 조회==");
 		System.out.println("==3.회원정보 등록==");
 		System.out.println("==4.회원정보 수정==");
 		System.out.println("==5.회원정보 삭제==");
 		System.out.println("==6.회원관리 종료==");
+		System.out.println("==7.게시글 보기 ==");
 		System.out.println("================");
 		System.out.println("원하는 작업번호를 입력하세요? ");
 	}
@@ -78,12 +79,12 @@ public class MainMenu {
 				System.out.println("작업을 종료합니다.!!");
 				b = true;
 				break;
+
 			}
 
 		} while (!b);
 
 		scan.close();
 	}
-
 
 }
