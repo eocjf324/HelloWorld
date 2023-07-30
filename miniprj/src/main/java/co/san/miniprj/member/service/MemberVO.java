@@ -27,4 +27,5 @@ public class MemberVO {
 		
 		return null;
 	}
+
 }

@@ -1,8 +1,10 @@
 package co.dc.project.menu;
 
+import java.util.List;
 import java.util.Scanner;
 
 import co.dc.project.boardprj.board.service.BoardService;
+import co.dc.project.boardprj.board.service.BoardVO;
 import co.dc.project.boardprj.board.serviceImpl.BoardServiceImpl;
 import co.dc.project.boardprj.member.Service.MemberService;
 import co.dc.project.boardprj.member.Service.MemberVO;
@@ -24,15 +26,25 @@ public class MainMenu {
 				if(login()) {
 					System.out.println("로그인성공");
 					boardMenu();
+					int boardmenu = Integer.parseInt(scan.nextLine());
+					switch(boardmenu) {
+					case 1:
+						boardList();
+						break;
+					case 2:
+					case 3:
+					case 4:
+					case 5:
+					case 6:
+					}
 				}else {
 					System.out.println("로그인실패");
 				}
-				
 				break;
 			case 2:
 				break;
 			case 3:
-				searchId();
+				//searchId();
 				break;
 			case 4:
 				break;
@@ -46,6 +58,19 @@ public class MainMenu {
 				break;
 			}
 		} while (!run);
+	}
+
+	private void boardList() {
+		List<BoardVO> boards = bs.boardSelectList();
+		if (!boards.isEmpty()) {
+			for (BoardVO board : boards) {
+				board.toString();
+			}
+		}
+		else {
+			System.out.println("회원이 한명도 존재하지 않습니다.");	
+		}
+		
 	}
 
 	private void loginMenu() {
@@ -81,34 +106,25 @@ public class MainMenu {
 		String id = scan.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
 		String pw = scan.nextLine();
+
 		member.setMemberId(id);
 		member.setMemberPassword(pw);
-		member = ms.checkId(member);
-//		if (member.getMemberId() != null) {
-//			System.out.println("로그인 되었습니다.");
-//
-//		} else {
-//			System.out.println("계정 정보가 일치하지 않습니다.");
-//		}
-		member = ms.checkId(member);
-		if(member.) {
+		if(ms.memberCheck(id, pw) ) {
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
-	private void searchId() {
-		MemberVO member = new MemberVO();
-		System.out.println("===찾을 회원의 전화번호를 입력하세요.===");
-		String tel = scan.nextLine();
-		member.setMemberTel(tel);
-		member = ms.searchId(member);
-		if (member.getMemberId() != null) {
-			System.out.println("회원의 아이디는 : " + member.getMemberId());
-		} else {
-			System.out.println("존재하지 않는 회원입니다. ㅜㅜ");
-		}
-	}
+//	private void searchId() {
+//		MemberVO member = new MemberVO();
+//		System.out.println("===찾을 회원의 전화번호를 입력하세요.===");
+//		String tel = scan.nextLine();
+//		member.setMemberTel(tel);
+//		member = ms.searchId(member);
+//		if (member.getMemberId() != null) {
+//			System.out.println("회원의 아이디는 : " + member.getMemberId());
+//		} else {
+//			System.out.println("존재하지 않는 회원입니다. ㅜㅜ");
+//		}
+//	}
 }

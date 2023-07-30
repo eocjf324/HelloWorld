@@ -18,7 +18,7 @@ public class BoardVO {
 		System.out.print(boardId + " ");
 		System.out.print(boardWriter + " ");
 		System.out.print(boardTitle + " ");
-		System.out.print(boardSubject + " ");
+//		System.out.print(boardSubject + " ");
 		System.out.print(boardDate + " ");
 		System.out.println(boardHit + " ");
 		return null;

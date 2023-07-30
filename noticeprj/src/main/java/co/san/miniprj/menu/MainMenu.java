@@ -85,7 +85,7 @@ public class MainMenu {
 				int key = scan.nextInt();
 				switch (key) {
 				case 1:
-					membersSelectList();
+				//	membersSelectList();
 					break;
 				case 2:
 					memberSelect();

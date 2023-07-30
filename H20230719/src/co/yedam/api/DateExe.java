@@ -28,7 +28,7 @@ public class DateExe {
 		System.out.println(result);
 		
 		
-		//데이트 -> 문자열 변환 , 패턴넣고
+		//데이트 -> 문자열 변환 , 패턴넣고9
 		result = DateUtil.dateToStr(tday, "yyyy-MM-dd");
 		System.out.println(result);
 		

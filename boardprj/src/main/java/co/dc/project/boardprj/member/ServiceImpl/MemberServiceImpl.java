@@ -4,130 +4,135 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import co.dc.project.boardprj.common.DataSource;
 import co.dc.project.boardprj.member.Service.MemberService;
 import co.dc.project.boardprj.member.Service.MemberVO;
 
 public class MemberServiceImpl implements MemberService {
-	
+
 	private DataSource dao = DataSource.getInstance();
-	private Connection conn;
+	private Connection connection;
 	private PreparedStatement psmt;
 	private ResultSet rs;
 
-	@Override
-	public MemberVO searchId(MemberVO vo) {
-		
-		String sql = "SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_TEL= ?";
-		
-		try {// DB 처리
-			conn = dao.getConnection();
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1 , vo.getMemberTel());
-			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
-				vo = new MemberVO();
-				vo.setMemberId(rs.getString("member_id"));
-				vo.setMemberName(rs.getString("member_name"));
-				vo.setMemberPassword(rs.getString("member_password"));
-				vo.setMemberAge(rs.getInt("member_age"));
-				vo.setMemberGender(rs.getString("member_gender"));
-				vo.setMemberTel(rs.getString("member_tel"));
-				vo.setMemberAddress(rs.getString("member_address"));
-			}
+	// 로그인 아이디, 비밀번호 확인
+	public boolean memberCheck(String id, String pw) {
 
-		} catch (SQLException e) {
-
-		} finally {
-			close();
-		}
-
-		return vo;
-	}
-
-	@Override
-	public MemberVO searchPassword(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	//로그인 아이디 확인
-	@Override
-	public MemberVO checkId(MemberVO vo) {
-		
 		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? and member_password =? ";
-		try {// DB 처리
-			conn = dao.getConnection();
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1 , vo.getMemberId());
-			psmt.setString(2 , vo.getMemberPassword());
+	
+		try {
+			connection = dao.getConnection();
+			psmt = connection.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+//			int r = psmt.executeUpdate();
+//			if(r == 1) {
+//				return true;
+//			}
 			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
-				vo = new MemberVO();
-				vo.setMemberId(rs.getString("member_id"));
-				vo.setMemberName(rs.getString("member_name"));
-				vo.setMemberPassword(rs.getString("member_password"));
-				vo.setMemberAge(rs.getInt("member_age"));
-				vo.setMemberGender(rs.getString("member_gender"));
-				vo.setMemberTel(rs.getString("member_tel"));
-				vo.setMemberAddress(rs.getString("member_address"));
-			}
-		
+			return rs.next();
 		} catch (SQLException e) {
 
 		} finally {
 			close();
 		}
-		return vo;
-	}
-
-	@Override
-	public MemberVO checkPassword(MemberVO vo) {
-		
-		return null;
+		return false;
+			
 	}
 
 	@Override
 	public int memberInsert(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?)";
+		int n = 0;
+		try {
+			connection = dao.getConnection();
+			psmt = connection.prepareStatement(sql);
+			psmt.setString(1, vo.getMemberId());
+			psmt.setString(2, vo.getMemberPassword());
+			psmt.setString(3, vo.getMemberName());
+			psmt.setInt(4, vo.getMemberAge());
+			psmt.setString(5, vo.getMemberGender());
+			psmt.setString(6, vo.getMemberTel());
+			psmt.setString(7, vo.getMemberAddress());
+			
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return n;
 	}
 
 	@Override
 	public int memberUpdate(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int n =0;
+//		String sql = "update member set ";
+		return n;
 	}
 
 	@Override
 	public int memberDelete(MemberVO vo) {
-		// TODO Auto-generated method stub
+		int n=0;
+		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ? ";
+		try {
+			connection = dao.getConnection();
+			psmt = connection.prepareStatement(sql);
+			psmt.setString(1, vo.getMemberId());
+			n = psmt.executeUpdate();
+		}catch(SQLException e) {
+			
+		}finally{
+			close();
+		}
 		return 0;
 	}
 
 	@Override
 	public MemberVO memberSelect(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
+		
+		try {
+			connection = dao.getConnection();
+			psmt = connection.prepareStatement(sql);
+			psmt.setString(1 , vo.getMemberId());
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO();
+				vo.setMemberId(rs.getString("member_id"));
+				vo.setMemberName(rs.getString("member_name"));
+				vo.setMemberPassword(rs.getString("member_password"));
+				vo.setMemberAge(rs.getInt("member_age"));
+				vo.setMemberGender(rs.getString("member_gender"));
+				vo.setMemberTel(rs.getString("member_tel"));
+				vo.setMemberAddress(rs.getString("member_address"));
+			}
+
+		} catch (SQLException e) {
+
+		} finally {
+			close();
+		}
+
+		return vo;
 	}
-	
+
 	private void close() {
 		try {
 			if (rs != null)
 				rs.close();
 			if (psmt != null)
 				psmt.close();
-			if (conn != null)
-				conn.close();
+			if (connection != null)
+				connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 	}
-
-
-
 }
