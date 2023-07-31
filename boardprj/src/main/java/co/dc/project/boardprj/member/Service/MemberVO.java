@@ -28,4 +28,19 @@ public class MemberVO {
 		
 		return null;
 	}
+	
+	public MemberVO() {};
+	
+	public MemberVO(String memberId, String memberPassword, String memberName, int memberAge, String memberGender,
+			String memberTel, String memberAddress) {
+		super();
+		this.memberId = memberId;
+		this.memberPassword = memberPassword;
+		this.memberName = memberName;
+		this.memberAge = memberAge;
+		this.memberGender = memberGender;
+		this.memberTel = memberTel;
+		this.memberAddress = memberAddress;
+	}
+	
 }

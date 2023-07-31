@@ -7,5 +7,5 @@ public interface MemberService {
 	int memberDelete(MemberVO vo);   //회원삭제
 	MemberVO memberSelect(MemberVO vo); //개인정보 조회
 	boolean memberCheck(String id, String pw); 
-
+	
 }

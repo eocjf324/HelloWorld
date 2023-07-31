@@ -81,6 +81,7 @@ public class BoardDAO implements BoardService {
 			psmt.setString(3, board.getContent());
 			psmt.setString(4, board.getWriter());
 			psmt.setString(5, board.getWriteDate());
+			
 			int r = psmt.executeUpdate(); // 처리된 건수 반환.
 			if (r == 1) {
 				return true;

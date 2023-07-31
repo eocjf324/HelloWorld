@@ -16,31 +16,31 @@ public class MemberServiceImpl implements MemberService {
 	private PreparedStatement psmt;
 	private ResultSet rs;
 
-	// 로그인 아이디, 비밀번호 확인
+
 	public boolean memberCheck(String id, String pw) {
 
 		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? and member_password =? ";
-	
+		
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);
 			psmt.setString(1, id);
 			psmt.setString(2, pw);
-//			int r = psmt.executeUpdate();
-//			if(r == 1) {
-//				return true;
-//			}
+
 			rs = psmt.executeQuery();
-			return rs.next();
+			if(rs.next()) {
+				return true;
+			}
+			
 		} catch (SQLException e) {
 
 		} finally {
 			close();
 		}
 		return false;
-			
 	}
-
+	
+	
 	@Override
 	public int memberInsert(MemberVO vo) {
 		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?)";
@@ -77,18 +77,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberDelete(MemberVO vo) {
 		int n=0;
-		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ? ";
+		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PASSWORD = ?";
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);
 			psmt.setString(1, vo.getMemberId());
+			psmt.setString(2, vo.getMemberPassword());
 			n = psmt.executeUpdate();
 		}catch(SQLException e) {
 			
 		}finally{
 			close();
 		}
-		return 0;
+		return n;
 	}
 
 	@Override
@@ -120,6 +121,7 @@ public class MemberServiceImpl implements MemberService {
 
 		return vo;
 	}
+	
 
 	private void close() {
 		try {
@@ -131,8 +133,8 @@ public class MemberServiceImpl implements MemberService {
 				connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			close();
 		}
 	}
+
+	
 }
