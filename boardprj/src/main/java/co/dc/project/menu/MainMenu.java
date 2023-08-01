@@ -26,7 +26,7 @@ public class MainMenu {
 			switch (menu) {
 			case 1:
 				if (login()) {
-				
+			
 					System.out.println("로그인성공");
 					while (!run) {
 						boardMenu();
@@ -79,7 +79,7 @@ public class MainMenu {
 		System.out.println("===   로그인   ===");
 		System.out.println("   1.로그인");
 		System.out.println("   2.회원가입");
-		System.out.println("   3.회원정보조회");
+		System.out.println("   3.개인정보조회");
 		System.out.println("   4.회원탈퇴");
 		System.out.println("   5.종료");
 		System.out.println("================");
@@ -100,14 +100,11 @@ public class MainMenu {
 
 	// 유저 메소드
 	private boolean login() {
-		MemberVO vo = new MemberVO();
 		System.out.println("로그인");
 		System.out.print("아이디를 입력하세요 : ");
 		String id = scan.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
 		String pw = scan.nextLine();
-		vo.setMemberId(id);
-		vo.setMemberPassword(pw);
 		if (ms.idCheck(id) && ms.passwordCheck(pw)) {
 			uid = id;
 			return true;
@@ -172,7 +169,7 @@ public class MainMenu {
 		vo.setMemberPassword(pw);
 		if (ms.memberDelete(vo) == 1) {
 			uid = id;
-			if (bs.boardClear(uid) == 1) {
+			if (bs.boardClear(uid) > 0) {
 				System.out.println("계정삭제 완료");
 			}
 		} else {
@@ -226,7 +223,7 @@ public class MainMenu {
 		int boardNum = Integer.parseInt(scan.nextLine());
 		bo.setBoardId(boardNum);
 
-		if (bs.boardSelect(bo) != null) {
+		if (bs.boardSelect(bo).getBoardWriter() != null) {
 			System.out.println("글번호\t 작성자\t 제목\t 작성일자\t \t조회수");
 			bs.boardHit(bo);
 			bs.boardSelect(bo).toString2();
@@ -260,9 +257,9 @@ public class MainMenu {
 
 	private void boardUpdate() {
 		BoardVO vo = new BoardVO();
-		System.out.println("수정할 글번호 입력>>");
+		System.out.print("수정할 글번호 입력>> ");
 		int boardNum = Integer.parseInt(scan.nextLine());
-		System.out.println("수정할 내용 입력>>");
+		System.out.print("수정할 내용 입력>> ");
 		String subject = scan.nextLine();
 		String writer = uid;
 		vo.setBoardId(boardNum);
@@ -278,7 +275,7 @@ public class MainMenu {
 
 	private void boardDelete() {
 		BoardVO vo = new BoardVO();
-		System.out.println("삭제할 글번호 입력>>");
+		System.out.print("삭제할 글번호 입력>> ");
 		int boardNum = Integer.parseInt(scan.nextLine());
 		String writer = uid;
 		vo.setBoardId(boardNum);

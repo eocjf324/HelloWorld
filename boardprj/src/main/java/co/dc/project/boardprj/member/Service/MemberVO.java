@@ -12,12 +12,11 @@ public class MemberVO {
 	private String memberGender;
 	private String memberTel;
 	private String memberAddress;
-	
+
 	@Override
 	public String toString() {
 		System.out.print(memberId + "\t ");
 		System.out.print(memberName + "\t ");
-		
 		if(memberPassword != null) {
 			System.out.print(memberPassword);
 		}

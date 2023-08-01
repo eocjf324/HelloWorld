@@ -45,7 +45,6 @@ public class MemberServiceImpl implements MemberService {
 			psmt = connection.prepareStatement(sql);
 			psmt.setString(1, id);
 		
-
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				return true;
@@ -78,9 +77,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return false;
 	}
-
-
-
+	
 	@Override
 	public int memberInsert(MemberVO vo) {
 		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?)";
