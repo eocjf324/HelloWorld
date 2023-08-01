@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import co.dc.project.boardprj.board.service.BoardService;
@@ -35,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
 				vo.setBoardId(rs.getInt("board_id"));
 				vo.setBoardWriter(rs.getString("board_writer"));
 				vo.setBoardTitle(rs.getString("board_title"));
+				vo.setBoardSubject(rs.getString("board_subject"));
 				vo.setBoardDate(rs.getDate("board_date").toLocalDate());
 				vo.setBoardHit(rs.getInt("board_hit"));
 				boards.add(vo);
@@ -49,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO boardSelect(BoardVO vo) {
-		String sql = "SELECT * FROM BOARD WHERE BOARD_ID  =? ";
+		String sql = "SELECT * FROM BOARD WHERE BOARD_ID  = ? ";
 
 		try {
 			connection = dao.getConnection();
@@ -57,6 +56,7 @@ public class BoardServiceImpl implements BoardService {
 			psmt.setInt(1, vo.getBoardId());
 			rs = psmt.executeQuery();
 			while (rs.next()) {
+				vo = new BoardVO();
 				vo.setBoardId(rs.getInt("board_id"));
 				vo.setBoardWriter(rs.getString("board_writer"));
 				vo.setBoardTitle(rs.getString("board_title"));
@@ -75,7 +75,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int boardInsert(BoardVO vo) {
 
-		String sql = "INSERT INTO BOARD VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO BOARD (BOARD_ID, BOARD_WRITER,BOARD_TITLE, BOARD_SUBJECT)VALUES(?,?,?,?)";
 		int n = 0;
 	
 		try {
@@ -85,8 +85,6 @@ public class BoardServiceImpl implements BoardService {
 			psmt.setString(2, vo.getBoardWriter());
 			psmt.setString(3, vo.getBoardTitle());
 			psmt.setString(4, vo.getBoardSubject());
-			psmt.setDate(5, java.sql.Date.valueOf(vo.getBoardDate()));
-			psmt.setInt(6, vo.getBoardHit());
 
 			n = psmt.executeUpdate();
 
@@ -100,7 +98,7 @@ public class BoardServiceImpl implements BoardService {
 
 	public int getBoardNum() {
 
-		String sql = "select max(board_ID) from board ";
+		String sql = "SELECT MAX(BOARD_ID) FROM BOARD ";
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);

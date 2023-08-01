@@ -16,22 +16,41 @@ public class MemberServiceImpl implements MemberService {
 	private PreparedStatement psmt;
 	private ResultSet rs;
 
+//	public boolean memberCheck(MemberVO vo) {
+//		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PASSWORD =? ";
+//
+//		try {
+//			connection = dao.getConnection();
+//			psmt = connection.prepareStatement(sql);
+//			psmt.setString(1, vo.getMemberId());
+//			psmt.setString(2, vo.getMemberPassword());
+//
+//			rs = psmt.executeQuery();
+//			if (rs.next()) {
+//				return true;
+//			}
+//
+//		} catch (SQLException e) {
+//
+//		} finally {
+//			close();
+//		}
+//		return false;
+//	}
+	public boolean idCheck(String id) {
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? ";
 
-	public boolean memberCheck(String id, String pw) {
-
-		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? and member_password =? ";
-		
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);
 			psmt.setString(1, id);
-			psmt.setString(2, pw);
+		
 
 			rs = psmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return true;
 			}
-			
+
 		} catch (SQLException e) {
 
 		} finally {
@@ -39,8 +58,29 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return false;
 	}
-	
-	
+	public boolean passwordCheck(String pw) {
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_PASSWORD =? ";
+
+		try {
+			connection = dao.getConnection();
+			psmt = connection.prepareStatement(sql);
+			psmt.setString(1,pw);
+
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+
+		} finally {
+			close();
+		}
+		return false;
+	}
+
+
+
 	@Override
 	public int memberInsert(MemberVO vo) {
 		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?)";
@@ -55,28 +95,21 @@ public class MemberServiceImpl implements MemberService {
 			psmt.setString(5, vo.getMemberGender());
 			psmt.setString(6, vo.getMemberTel());
 			psmt.setString(7, vo.getMemberAddress());
-			
+
 			n = psmt.executeUpdate();
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
-		
-		return n;
-	}
 
-	@Override
-	public int memberUpdate(MemberVO vo) {
-		int n =0;
-//		String sql = "update member set ";
 		return n;
 	}
 
 	@Override
 	public int memberDelete(MemberVO vo) {
-		int n=0;
+		int n = 0;
 		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PASSWORD = ?";
 		try {
 			connection = dao.getConnection();
@@ -84,9 +117,9 @@ public class MemberServiceImpl implements MemberService {
 			psmt.setString(1, vo.getMemberId());
 			psmt.setString(2, vo.getMemberPassword());
 			n = psmt.executeUpdate();
-		}catch(SQLException e) {
-			
-		}finally{
+		} catch (SQLException e) {
+
+		} finally {
 			close();
 		}
 		return n;
@@ -94,19 +127,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO memberSelect(MemberVO vo) {
-		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
-		
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PASSWORD = ? ";
+
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);
-			psmt.setString(1 , vo.getMemberId());
+			psmt.setString(1, vo.getMemberId());
+			psmt.setString(2, vo.getMemberPassword());
 			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				vo = new MemberVO();
 				vo.setMemberId(rs.getString("member_id"));
 				vo.setMemberName(rs.getString("member_name"));
-				vo.setMemberPassword(rs.getString("member_password"));
 				vo.setMemberAge(rs.getInt("member_age"));
 				vo.setMemberGender(rs.getString("member_gender"));
 				vo.setMemberTel(rs.getString("member_tel"));
@@ -121,7 +154,6 @@ public class MemberServiceImpl implements MemberService {
 
 		return vo;
 	}
-	
 
 	private void close() {
 		try {
@@ -136,5 +168,4 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	
 }

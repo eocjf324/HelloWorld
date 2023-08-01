@@ -9,6 +9,5 @@ public class App
     	MainMenu menu = new MainMenu();
     	
 		menu.run();
-		
     }
 }

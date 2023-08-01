@@ -15,16 +15,16 @@ public class MemberVO {
 	
 	@Override
 	public String toString() {
-		System.out.print(memberId + " ");
-		System.out.print(memberName + " ");
+		System.out.print(memberId + "\t ");
+		System.out.print(memberName + "\t ");
 		
 		if(memberPassword != null) {
 			System.out.print(memberPassword);
 		}
-		System.out.print(memberAge + " ");
-		System.out.print(memberGender + " ");
-		System.out.print(memberTel + " ");
-		System.out.println(memberAddress + " ");
+		System.out.print(memberAge + "\t ");
+		System.out.print(memberGender + "\t ");
+		System.out.print(memberTel + "\t\t ");
+		System.out.println(memberAddress + "\t ");
 		
 		return null;
 	}
