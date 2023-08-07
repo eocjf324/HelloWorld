@@ -22,7 +22,7 @@ public class MemberVO {
 		}
 		System.out.print(memberAge + "\t ");
 		System.out.print(memberGender + "\t ");
-		System.out.print(memberTel + "\t\t ");
+		System.out.print(memberTel + "\t ");
 		System.out.println(memberAddress + "\t ");
 		
 		return null;

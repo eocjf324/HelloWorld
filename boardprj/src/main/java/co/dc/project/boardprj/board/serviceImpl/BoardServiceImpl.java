@@ -49,7 +49,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO boardSelect(BoardVO vo) {
 		String sql = "SELECT * FROM BOARD WHERE BOARD_ID  = ? ";
-
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);
@@ -159,23 +158,22 @@ public class BoardServiceImpl implements BoardService {
 		return n;
 	}
 	@Override
-	public int boardClear(String id) {
+	public void boardClear(String id) {
 
 		String sql = "DELETE BOARD WHERE BOARD_WRITER = ?";
-		int n = 0;
+		
 		try {
 			connection = dao.getConnection();
 			psmt = connection.prepareStatement(sql);
 			psmt.setString(1, id);
-
-			n = psmt.executeUpdate();
+			psmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		return n;
+		
 	}
 
 	@Override

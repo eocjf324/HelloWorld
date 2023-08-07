@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
 		List<MemberVO> members = new ArrayList<MemberVO>();
 		MemberVO vo;
 
-		try {// DB 처리
+		try {
 			conn = dao.getConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO memberSelect(MemberVO vo) {
 		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
 	
-		try {// DB 처리
+		try {
 			conn = dao.getConnection();
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1 , vo.getMemberId());
@@ -108,7 +108,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int memberDelete(MemberVO vo) {
-		int n=0;
+		int n = 0;
 		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ? ";
 		try {
 			conn = dao.getConnection();
@@ -123,11 +123,6 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	@Override
-	public int memberUpdate(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	private void close() {
 		try {

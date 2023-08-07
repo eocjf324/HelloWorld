@@ -151,7 +151,7 @@ public class MainMenu {
 		vo.setMemberPassword(pw);
 		
 		if(ms.idCheck(id) && ms.passwordCheck(pw) ){
-			System.out.println("아이디\t 이름\t 나이\t 성별\t 전화번호\t\t 멤버주소");
+			System.out.println("아이디\t 이름\t 나이\t 성별\t 전화번호\t\t 주소");
 			ms.memberSelect(vo).toString();
 		}
 		else {
@@ -169,9 +169,8 @@ public class MainMenu {
 		vo.setMemberPassword(pw);
 		if (ms.memberDelete(vo) == 1) {
 			uid = id;
-			if (bs.boardClear(uid) > 0) {
-				System.out.println("계정삭제 완료");
-			}
+			System.out.println("계정삭제 완료");
+			bs.boardClear(uid);
 		} else {
 			System.out.println("계정삭제 실패");
 		}

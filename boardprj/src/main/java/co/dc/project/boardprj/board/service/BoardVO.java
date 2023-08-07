@@ -24,9 +24,9 @@ public class BoardVO {
 			temp += "....";
 			System.out.print(temp + "\t ");
 		} else {
-			System.out.print(boardSubject + "\t\t ");
+			System.out.print(boardSubject + "\t ");
 		}
-		System.out.print(boardDate + "\t");
+		System.out.print(boardDate + "\t  ");
 		System.out.println(boardHit + "\t ");
 
 		return null;
