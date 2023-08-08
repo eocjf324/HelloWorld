@@ -31,7 +31,7 @@
 						
 						<tr>
 							<th>내용</th>
-							<td colspan="3"><textarea rows ="20" cols="84"></textarea></td>
+							<td colspan="3"><textarea rows ="20" cols="84" id = "noticeSubject" name="noticeSubject"></textarea></td>
 						</tr>
 						<tr>
 							<th>첨부파일</th>

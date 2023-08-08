@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="noticeSearchList" resultType="co.kh.execsample.notice.service.NoticeVO">
-		SELECT * FROM NOTICE WHERE
+		SELECT * FROM NOTICE 
 		<if test="key == 'title'">WHERE NOTICE_TITLE LIKE '%'|| #{val} || '%' </if>
 		<if test="key == 'subject'">WHERE NOTICE_SUBJECT LIKE '%'|| #{val} || '%' </if>
 		<if test="key == 'writer'">WHERE NOTICE_WRITER LIKE '%'|| #{val} || '%' </if>
