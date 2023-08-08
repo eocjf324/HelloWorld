@@ -1,9 +1,6 @@
-package co.kh.execsample.common;
+package co.dc.example.common;
 
 import java.io.IOException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +11,6 @@ public class ViewResolve {
 	public static void forward(HttpServletRequest request, HttpServletResponse response, String viewName)
 			throws ServletException, IOException {
 
-		
 		String subfix = ".tiles";
 
 		viewName = viewName + subfix;

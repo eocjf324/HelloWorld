@@ -16,7 +16,7 @@
 			<c:if test="${author eq 'ADMIN' }">
 				<li><a class="menuLink" href="memberlist.do">Member</a></li>
 			</c:if>
-			<c:if test="${empty id }">
+			<c:if test="${empty id }">  
 				<li><a class="menuLink" href="memberjoinform.do">Join</a></li>
 				<li><a class="menuLink" href="memberloginform.do">Login</a></li>
 			</c:if>

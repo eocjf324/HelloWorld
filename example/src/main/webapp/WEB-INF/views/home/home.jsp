@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<hr>
-	<div align="center">
-		<h1>CopyRight by @dc TEL : 053-421-2460</h1>
-	</div>
+	 <h1> HOME</h1>
 </body>
 </html>
