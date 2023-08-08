@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import co.dc.example.common.DataSources;
 import co.dc.example.notice.mapper.NoticeMapper;
+import co.dc.example.notice.service.NoticeService;
 import co.dc.example.notice.service.NoticeVO;
-import co.dc.example.notice.web.NoticeService;
 
 public class NoticeServiceImpl implements NoticeService {
 

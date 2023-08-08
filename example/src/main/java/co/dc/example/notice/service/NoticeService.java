@@ -1,11 +1,8 @@
-package co.dc.example.notice.web;
+package co.dc.example.notice.service;
 
 import java.util.List;
 
-import co.dc.example.notice.service.NoticeVO;
-
 public interface NoticeService {
-
 	List<NoticeVO> noticeSelectList();
 	List<NoticeVO> noticeSelectList(String key, String val);
 	

@@ -13,6 +13,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import co.dc.example.common.ViewResolve;
+import co.dc.example.notice.service.NoticeService;
 import co.dc.example.notice.service.NoticeVO;
 import co.dc.example.notice.serviceImpl.NoticeServiceImpl;
 
