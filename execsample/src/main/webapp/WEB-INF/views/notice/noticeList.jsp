@@ -52,7 +52,12 @@
 					</tbody>
 				</table>
 			</div>
-			<br> <input type="submit" value="게시글 등록">
+			<br> 
+			<div>
+				<c:if test="${not empty id }">
+					<button type="button" onclick ="location.href='noticeform.do'">글쓰기</button>
+				</c:if>
+			</div>
 		</form>
 	</div>
 </body>

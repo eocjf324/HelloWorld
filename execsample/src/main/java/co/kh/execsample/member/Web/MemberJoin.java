@@ -41,7 +41,7 @@ public class MemberJoin extends HttpServlet {
 		// 요기다 파일 업로드 및 데이터 관리를 한다.
 		MemberService dao = new MemberServiceImpl();
 		MemberVO vo = new MemberVO();
-		String saveDir = getServletContext().getRealPath("/attech/"); // 리눅스 유닉스 / 윈도우 \ file.separator = 지가 알아숴 바꿔줌  
+		String saveDir = getServletContext().getRealPath("/attech/member/"); // 리눅스 유닉스 / 윈도우 \ file.separator = 지가 알아숴 바꿔줌  
 		int sizeLimit = 100 * 1024 * 1024; // 파일사이즈 지정
 		
 

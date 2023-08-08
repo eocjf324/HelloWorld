@@ -8,21 +8,44 @@
 </head>
 <body>
 	<div align="center">
-		<form id="frm" action="noticeInsert.do" method="post">
-			<div>
-				<h1>게시글 등록</h1>
-			</div>
-			<div>
-				<ul>
-					<li>제목</li>
-					<input type="text" id="title" name="title">
-				</ul>
-				<ul>
-					<li>내용</li>
-					<input type="text" id="subject" name="subject">
-				</ul>
-			</div>
-		</form>
+		<div>
+			<h1>게시글 작성</h1>
+		</div>
+		<div>
+			<form id="noticefrm" action="noticeinsert.do" method="post"
+				enctype="multipart/form-data">
+				<div>
+					<table border="1">
+						<tr>
+							<th width="100">작성자</th>
+							<td><input type="text"  id="noticeWriter" name="noticeWriter" required="required" value ="${name}" readonly="readonly"></td>
+						
+					
+							<th width="100">작성일자</th>
+							<td><input type="date"  id="noticeDate"	name="noticeDate" required="required"></td>
+						</tr>
+						<tr>
+							<th width="100">제목</th>
+							<td><input type="text"  id="noticeTitle" name="noticeTitle" required="required"></td>
+						</tr>
+						
+						<tr>
+							<th>내용</th>
+							<td colspan="3"><textarea rows ="20" cols="84"></textarea></td>
+						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td colspan="3"><input type="file" id="file" name="file"></td>
+						</tr>
+					</table>
+				</div>
+				<br>
+				<div>
+					<input type="submit" value="작성">&nbsp;&nbsp;&nbsp; <input
+						type="reset" value="취소">
+				</div>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

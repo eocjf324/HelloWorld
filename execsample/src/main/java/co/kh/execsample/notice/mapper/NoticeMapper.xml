@@ -6,13 +6,15 @@
 		<if test="key == 'title'">WHERE NOTICE_TITLE LIKE '%'|| #{val} || '%' </if>
 		<if test="key == 'subject'">WHERE NOTICE_SUBJECT LIKE '%'|| #{val} || '%' </if>
 		<if test="key == 'writer'">WHERE NOTICE_WRITER LIKE '%'|| #{val} || '%' </if>
+		ORDER BY NOTICE_ID DESC
 	</select>
 	
-	<select id="noticesSearchList" resultType="co.kh.execsample.notice.service.NoticeVO">
+	<select id="noticeSearchList" resultType="co.kh.execsample.notice.service.NoticeVO">
 		SELECT * FROM NOTICE WHERE
 		<if test="key == 'title'">WHERE NOTICE_TITLE LIKE '%'|| #{val} || '%' </if>
 		<if test="key == 'subject'">WHERE NOTICE_SUBJECT LIKE '%'|| #{val} || '%' </if>
 		<if test="key == 'writer'">WHERE NOTICE_WRITER LIKE '%'|| #{val} || '%' </if>
+		ORDER BY NOTICE_ID DESC  
 	</select>
 	
 	<select id = "noticeSelect" resultType="co.kh.execsample.notice.service.NoticeVO">
@@ -25,9 +27,8 @@
 	        	ELSE MAX(NOTICE_ID)+1 END AS noticeId FROM NOTICE
 		</selectKey>
 		INSERT INTO NOTICE
-		VALUES(#{noticeId},#{noticeWriter},#{noticeTitle},#{noticeSubject},sysdate,#{noticeAttech}#{noticeAttechDir},0)
+		VALUES(#{noticeId},#{noticeWriter},#{noticeTitle},#{noticeSubject},#{noticeDate},#{noticeAttech},#{noticeAttechDir},0)
 	</insert>
-	
 	
 	<delete id="noticeDelete" parameterType="co.kh.execsample.notice.service.NoticeVO">
 	
@@ -36,6 +37,6 @@
 	
 	</update>
 	<update id="noticeUpdateHit" parameterType="int">
-		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT + 1 WHERE NOTICE_ID = #{ID}
+		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT + 1 WHERE NOTICE_ID = #{noticeId}
 	</update>
 </mapper>
