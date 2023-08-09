@@ -8,17 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div align="center">
+	<div align="center">
 		<div>
 			<h1>게시판</h1>
 		</div>
-		<form action= "" id="frm" method="post">
+		<form action="" id="frm" method="post">
 			<select id="key" name="key">
 				<option value="title">제목</option>
 				<option value="subject">내용</option>
 				<option value="writer">작성자</option>
-			</select> <input type="text" id="val" name="val"> <input type="button"
-				onclick="searchList()" value="검색">
+			</select> 
+			<input type="text" id="val" name="val"> <input type="button" onclick="searchList()" value="검색">
 		</form>
 		<div>
 			<table border="1">
@@ -39,13 +39,14 @@
 						<c:forEach items="${notices }" var="n">
 							<tr onmouseover="this.style.background= '#0000FF'"
 								onmouseout="this.style.background= '#FFFFFF'"
-								onclick="selectNotice(${n.noticeId})">
-								<td>${n.noticeId }</td>
+								onclick="selectNotice(${n.noticeId})"
+							>
+								<td align="center">${n.noticeId }</td>
 								<td>${n.noticeWriter }</td>
-								<td>${n.noticeTitle }</td>
-								<td>${n.noticeDate }</td>
-								<td>${n.noticeAttechDir }</td>
-								<td>${n.noticeHit }</td>
+								<td align="center">${n.noticeTitle }</td>
+								<td align="center">${n.noticeDate }</td>
+								<td>${n.noticeAttech }</td>
+								<td align="center">${n.noticeHit }</td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -64,7 +65,7 @@
 			</c:if>
 		</div>
 		<div>
-			<form id="noticefrm" action = "noticeselect.do" method="post">
+			<form id="noticefrm" action="noticeselect.do" method="post">
 				<input type="hidden" id="noticeId" name="noticeId">
 			</form>
 		</div>
@@ -75,6 +76,51 @@
 		function selectNotice(n){
 			document.getElementById("noticeId").value = n;
 			document.getElementById("noticefrm").submit();
+		}
+		function searchList(){
+			//ajax를 이용해서 검색결과를 가져오고 화면을 재구성한다. 
+			let key = document.getElementById("key").value;
+			let val = document.getElementById("val").value;
+				
+			let payload = "key=" +key+ "&val="+ val ; 
+	
+			let url = "ajaxnoticesearch.do";
+			fetch(url,{ //post방식 url , {옵션}
+				method:"POST",
+				headers: {
+					"Content-Type":"application/x-www-form-urlencoded",
+				},
+				body: payload 
+			}).then(response => response.json())
+			  .then(json => htmpConevert(json));
+		}
+		
+		function htmpConevert(datas){
+			document.querySelector('tbody').remove();
+			const tbody = document.createElement('tbody');
+			//tbody data 추가
+			tbody.innerHTML = datas.map(data => htmlView(data)).join('');//map메소드 ?
+					
+			//table tobody 추가
+			document.querySelector('table').appendChild(tbody);
+			
+			
+		}
+		
+		function htmlView(data){
+			return `
+					<tr onmouseover="this.style.background= '#0000FF'"
+						onmouseout="this.style.background= '#FFFFFF'"
+						onclick="selectNotice(\${data.noticeId})">
+						<td align="center">\${data.noticeId }</td>
+						<td>\${data.noticeWriter }</td>
+						<td align="center">\${data.noticeTitle }</td>
+						<td align="center">\${data.noticeDate }</td>
+						<td>\${data.noticeAttech }</td>
+						<td align="center">\${data.noticeHit }</td>
+					</tr>
+			`
+			
 		}
 	</script>
 

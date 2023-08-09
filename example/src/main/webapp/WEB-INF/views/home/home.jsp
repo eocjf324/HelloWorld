@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	 <h1> HOME</h1>
+	<div>
+		<h1>WellCome to my WebSite!!!</h1>
+	</div>
+	<div>
+		<img src="img/sunflower.jpg" width = "600" height = "300">
+	</div>
 </body>
 </html>

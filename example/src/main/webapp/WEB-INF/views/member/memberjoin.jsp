@@ -67,6 +67,7 @@
 	<script type="text/javascript">
 		function idCheck() { //ajax를 통신을 이용해서 아이디 중복체크를 한다.
 			let id = document.getElementById("memberId").value;
+			console.log(id);
 			// get방식 ajax호출
 			let url = "ajaxMemberIdCheck.do?memberId="+id;
 			fetch(url)
@@ -79,6 +80,7 @@
 				document.getElementById("btn").disabled = true;
 				document.getElementById("btn").value= "Yes";
 				document.getElementById("memberPassword").focus();
+				
 			}else{
 				alert("사용중인 아이디 입니다.");
 				document.getElementById("memberId").value= "";
