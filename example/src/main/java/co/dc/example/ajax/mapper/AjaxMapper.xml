@@ -13,7 +13,7 @@
 			<if test="mbrPhone != null">MBR_PHONE = #{mbrPhone},</if>
 			<if test="mbrAge != null">MBR_AGE = #{mbrAge}</if>
 		</set>
-		WHERE MBR_ID = #{memberId}
+		WHERE MBR_ID = #{mbrId}
 	</update>
 	
 	<delete id="deleteMember">
