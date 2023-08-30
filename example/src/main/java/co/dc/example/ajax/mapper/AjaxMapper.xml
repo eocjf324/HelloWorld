@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.dc.example.ajax.mapper.AjaxMapper">
+	<insert id="addMember">
+		INSERT INTO MEMBERS
+		VALUES(#{mbrId},#{mbrName},#{mbrPhone},#{mbrAge})
+	</insert>
+	
+	<update id="editMember">
+		UPDATE MEMBERS
+		<set>
+			<if test="mbrName != null">MBR_NAME = #{mbrName},</if>
+			<if test="mbrPhone != null">MBR_PHONE = #{mbrPhone},</if>
+			<if test="mbrAge != null">MBR_AGE = #{mbrAge}</if>
+		</set>
+		WHERE MBR_ID = #{memberId}
+	</update>
+	
+	<delete id="deleteMember">
+		DELETE FROM MEMBERS
+		WHERE MBR_ID = #{memberId}
+	</delete>
+	
+	<select id="listMember" resultType="co.dc.example.ajax.service.MembersVO">
+		SELECT * 
+		FROM MEMBERS
+		ORDER BY MBR_ID
+	</select>
+</mapper>
