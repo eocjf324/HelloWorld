@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.dc.example.notice.mapper.ReplyMapper">
+	<insert id="addReply">
+		<selectKey resultType="co.dc.example.notice.service.ReplyVO"
+			keyProperty="replyId,replyDate" order="BEFORE">
+			SELECT SEQ_REPLY.NEXTVAL AS
+			REPLYID, SYSDATE AS REPLYDATE FROM DUAL
+
+		</selectKey>
+		INSERT INTO REPLY
+		VALUES(#{replyId},#{noticeId},#{reply},#{replyer},#{replyDate})
+	</insert>
+
+	<select id="replylist"
+		resultType="co.dc.example.notice.service.ReplyVO">
+		SELECT * FROM REPLY
+		WHERE NOTICE_ID = #{noticeId}
+		ORDER BY
+		REPLY_ID DESC
+	</select>
+
+	<select id="getReply"
+		resultType="co.dc.example.notice.service.ReplyVO">
+		SELECT * FROM REPLY WHERE REPLY_ID = #{REPLYID}
+	</select>
+	<delete id="delReply"
+		parameterType="co.dc.example.notice.service.ReplyVO">
+		DELETE FROM REPLY WHERE REPLY_ID = #{REPLYID}
+	</delete>
+
+	<update id="eidtReply" parameterType="co.dc.example.notice.service.ReplyVO">
+		UPDATE REPLY
+		SET REPLY = #{reply}
+		WHERE REPLY_ID = #{replyId}
+	</update>
+
+
+</mapper>
