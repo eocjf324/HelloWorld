@@ -32,7 +32,7 @@ public class NoticeSelect extends HttpServlet {
 		vo = dao.noticeSelect(vo);
 		
 		request.setAttribute("n", vo);
-		String viewName = "notice/noticeselect";
+		String viewName = "notice/noticeselect2";
 		
 		ViewResolve.forward(request, response, viewName);
 	}

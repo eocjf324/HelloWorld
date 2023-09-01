@@ -5,7 +5,7 @@
 		<selectKey resultType="co.dc.example.notice.service.ReplyVO"
 			keyProperty="replyId,replyDate" order="BEFORE">
 			SELECT SEQ_REPLY.NEXTVAL AS
-			REPLYID, SYSDATE AS REPLYDATE FROM DUAL
+			replyId, SYSDATE AS replyDate FROM DUAL
 
 		</selectKey>
 		INSERT INTO REPLY
@@ -22,11 +22,11 @@
 
 	<select id="getReply"
 		resultType="co.dc.example.notice.service.ReplyVO">
-		SELECT * FROM REPLY WHERE REPLY_ID = #{REPLYID}
+		SELECT * FROM REPLY WHERE REPLY_ID = #{ReplyId}
 	</select>
 	<delete id="delReply"
 		parameterType="co.dc.example.notice.service.ReplyVO">
-		DELETE FROM REPLY WHERE REPLY_ID = #{REPLYID}
+		DELETE FROM REPLY WHERE REPLY_ID = #{ReplyId}
 	</delete>
 
 	<update id="eidtReply" parameterType="co.dc.example.notice.service.ReplyVO">

@@ -12,6 +12,9 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css">
 
 <!-- Custom styles for this template-->
 <link href="./css/sb-admin-2.min.css" rel="stylesheet">
@@ -29,6 +32,7 @@
 </style>
 <script src="./js/jquery.min.js"></script>
 
+<script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
@@ -74,31 +78,31 @@
 		</div>
 	</div>
 	<!-- 댓글부분. -->
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-comments fa-fw"></i>Reply
-					<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
-						Reply</button>
-				</div>
-				<div class="panel-body">
-					<ul class="chat">
-						<li class="left clearfix" data-rno="12" style="display: none;">
-							<div>
-								<div class="header">
-									<strong class="primary-font"></strong> <small
-										class="pull-right text-muted"></small>
-								</div>
-								<p></p>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="panel-footer"></div>
-			</div>
-		</div>
+
+	<div>
+		<label>댓글내용<input type="text" id="content"></label> <label>작성자<input
+			type="text" id="writter"></label>
+		<button id="addbtn">등록</button>
 	</div>
+
+	<table id="example" class="display" style="width: 100%">
+		<thead>
+			<tr>
+				<th>댓글번호</th>
+				<th>댓글내용</th>
+				<th>작성자</th>
+				<th>작성일자</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>댓글번호</th>
+				<th>댓글내용</th>
+				<th>작성자</th>
+				<th>작성일자</th>
+			</tr>
+		</tfoot>
+	</table>
 	<!-- end -->
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -137,113 +141,53 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
-
 	<script src="./js/reply.js"></script>
-	<script src="./js/bootstrap.min.js"></script>
-	<!--  reply.js reply클래스 선언 -->
-
 	<script>
 		var noticeId = '<c:out value="${n.noticeId}" />';
 		console.log('notice: ', noticeId);
 
-		var reply = new Reply();
-
-		reply.replyList(noticeId, function(data) { //replyList메소드
-
-			console.log(data);
-			var reply = new Reply();
-
-			//var mils = Date.parse('Aug 29,2023, 9:16:27 AM');
-			//today = new Date(mils);
-			//console.log(today.getDate());
-
-			//let str = '';
-			for (let i = 0; i < data.length; i++) {
-				let temp = $('.chat > li').eq(0).clone();
-				temp.css('display', 'block');
-
-				temp.attr('data-rno', data[i].replyId);
-				temp.find('strong').text(data[i].replyer);
-				temp.find('small').text(reply.displayDateTime(data[i].replyDate));
-				temp.find('p').text(data[i].reply);
-
-				$('.chat').append(temp);
-			}
-
-		})
-		
+		const table = new DataTable('#example', {
+			ajax : './AjaxDatatable.do?noticeId=' + noticeId,
+			columns : [ {
+				data : 'replyId'}, {
+				data : 'reply'}, {
+				data : 'replyer'}, {
+				data : 'replyDate'} ]
+		});
 		//댓글등록
-		$('#addReplyBtn').on('click', function() {
-			//수정, 삭제 버튼 숨김.
-			$('#modalModBtn').hide();
-			$('#modalRemoveBtn').hide();
-			$('.modal').modal('show');
-			
-		})
-		
-		//댓글등록처리.
-		$('#modalRegisterBtn').on('click',function(){
-		
-			var content = $('input[name=reply]').val();
-			var replyer = $('input[name=replyer]').val();
-			var param = {noticeId, reply:content, replyer}
-			
+		$('#addbtn').on('click', function(){
+			let content = $('#content').val();
+			let writter = $('#writter').val();
+			const reply = new Reply();
+			const param = {
+					noticeId,
+					reply: content,
+					replyer: writter
+			}
 			reply.replyAdd(param, function(data){
-				console.log(data);
-				let temp = $('.chat > li').eq(0).clone();
-				temp.css('display', 'block');
-
-				temp.attr('data-rno', data.data.replyId);
-				temp.find('strong').text(data.data.replyer);
-				temp.find('small').text(reply.displayDateTime(data.data.replyDate));
-				temp.find('p').text(data.data.reply);
-
-				$('.chat').append(temp);
-				$('.modal').modal('hide');
-			});
-		})
-		//수정, 삭제 화면.
-		$('.chat').on('click','li', function () {  //이벤트가 실행되는 시점에 li가 없기때문에  <- 이런방식 
-			$('#modalModBtn').show();
-			$('#modalRemoveBtn').show();
-			$('#modalRegisterBtn').hide();
-			$('.modal').modal('show');
-			
-			var rno = $(this).attr('data-rno');
-			rno = $(this).data('rno');
-		
-			//data-rno = 1
-			reply.replySearch(rno, function(data){
-				console.log(data);
-				
-				$('input[name=reply]').val(data.reply);
-				$('input[name=replyer]').val(data.replyer);
-				$('input[name=replyDate]').val(data.replyDate);
+				addNewRow(data.data);
 			})
-			//수정
-		$('#modalModBtn').on('click', function(){
-			var replyId =  rno; 
-			console.log(replyId);
-			var content = $('input[name=reply]').val();
-			var replyer = $('input[name=replyer]').val();
-			var param = {replyId, reply:content, replyer}
-			
-			reply.replyUpdate(param, function(data){
-				
-				console.log(data);
-				let temp = $('.chat > li').eq(0).clone();
-				temp.find('strong').text(data.data.replyer);
-				temp.find('p').text(data.data.reply);
-
-				$('.chat').append(temp);
-				$('.modal').modal('hide');
-			});
-		})
 		})
 		
-			
-	</script>
+		function addNewRow(row) {
+			 table.row
+		        .add({
+		        	replyId: row.replyId,
+		        	reply: row.reply,
+		        	replyer: row.replyer,
+		        	replyDate: row.replyDate
+		        	
+				})
+		        .draw(false);
+		 
+		    //counter++;
+		
 
+		   
+		}
+		 
+		
+	</script>
 
 	<script type="text/javascript">
 		function noticeUpdate(str) {
