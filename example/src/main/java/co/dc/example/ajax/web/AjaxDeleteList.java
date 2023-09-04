@@ -22,17 +22,14 @@ import co.dc.example.ajax.serviceImpl.TodoServiceImpl;
 public class AjaxDeleteList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
     public AjaxDeleteList() {
         super();
-        
     }
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		TodoService service = new TodoServiceImpl();
 		TodoVO vo = new TodoVO();
+		
 		System.out.println(request.getParameter("listNum"));
 		vo.setListNum(Integer.parseInt(request.getParameter("listNum")));
 		

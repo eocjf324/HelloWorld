@@ -33,8 +33,7 @@
 	}
 	deleteList(listNum, callback){
 		$.ajax({
-			url:"../AjaxDeleteList.do",
-			data: listNum,
+			url:"../AjaxDeleteList.do?listNum="+listNum,
 			success:function(data){
 				callback(data);
 			}

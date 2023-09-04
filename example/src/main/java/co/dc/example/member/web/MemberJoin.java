@@ -48,7 +48,7 @@ public class MemberJoin extends HttpServlet {
 				vo.setMemberTel(multi.getParameter("memberTel"));
 				vo.setMemberAddress(multi.getParameter("memberAddress"));
 
-				int n = dao.memberInsert(vo); // 리턴 되면 1이 들어오겠지?
+				int n = dao.memberInsert(vo);
 				if (n != 0) {
 					request.setAttribute("message", "회원가입이 정상적으로 처리되었습니다.");
 				} else {

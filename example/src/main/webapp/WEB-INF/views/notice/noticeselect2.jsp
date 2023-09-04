@@ -181,9 +181,7 @@
 		        .draw(false);
 		 
 		    //counter++;
-		
-
-		   
+   
 		}
 		 
 		

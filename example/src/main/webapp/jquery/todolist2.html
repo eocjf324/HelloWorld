@@ -176,27 +176,38 @@
 		})
 
 		//삭제  Click on a close button to hide the current list item 
-
+	/*
 		var close = $("li span");
 		var i;
 		for (i = 0; i < close.length; i++) {
 			$(close[i]).on('click', "span.close", function () {
 				var listNum = $(this).data('rno');
 				console.log(listNum);
-				todo.deleteList(listNum,function(data){
+				todo.deleteList(listNum, function (data) {
 					console.log(data);
 				})
 				//$(this).parent().hide();
 			})
-		}
-		
+		}*/
+		$('ul').on('click', 'span',function () {
+			
+			var listNum =$(this).closest('li').data('rno');
+			var del = $(this).closest('li');
+			console.log(listNum);
+			todo.deleteList(listNum, function (data) {
+				console.log(data);
+				del.hide();
+			});
+		})
+
+
 		// Add a "checked" symbol when clicking on a list item
 		$('ul').on('click', 'li', function () {
 
 			var listNum = $(this).data('rno');
-			if($(this).hasClass('checked')){
+			if ($(this).hasClass('checked')) {
 				var complete = "NO";
-			}else{
+			} else {
 				var complete = "YES";
 			}
 
@@ -206,10 +217,10 @@
 
 			});
 			$(this).toggleClass('checked');
-			
+
 		})
-		
-		
+
+
 		// Create a new list item when clicking on the "Add" button
 
 		$('.addBtn').on('click', function () {

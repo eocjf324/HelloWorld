@@ -22,8 +22,7 @@
 							<th width="150">아이디 *</th>
 							<td width="300"><input type="text" id="memberId"
 								name="memberId" required="required"> &nbsp;&nbsp;&nbsp;
-								<button type="button" id="btn" value="NoCheck"
-									onclick="idCheck()">중복체크</button></td>
+								<button type="button" id="btn" value="NoCheck"	onclick="idCheck()">중복체크</button></td>
 						</tr>
 						<tr>
 							<th>패스워드 *</th>
@@ -95,7 +94,7 @@
 			let id = document.getElementById("btn").value;
 
 			if (id == 'NoCheck') {
-				alert("아이디 중복체크를 하세요 ㅋ");
+				alert("아이디 중복체크를 하세요 ");
 				return false;
 			}
 			if (password != passcheck) {

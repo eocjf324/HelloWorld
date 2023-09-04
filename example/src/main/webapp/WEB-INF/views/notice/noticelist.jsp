@@ -18,7 +18,8 @@
 				<option value="subject">내용</option>
 				<option value="writer">작성자</option>
 			</select> 
-			<input type="text" id="val" name="val"> <input type="button" onclick="searchList()" value="검색">
+			<input type="text" id="val" name="val">
+			<input type="button" onclick="searchList()" value="검색">
 		</form>
 		<div>
 			<table border="1">
