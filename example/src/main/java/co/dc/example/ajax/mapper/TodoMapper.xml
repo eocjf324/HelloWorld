@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.dc.example.ajax.mapper.TodoMapper">
+
+	<select id="todoList"
+		resultType="co.dc.example.ajax.service.TodoVO">
+		SELECT *
+		FROM TODO
+		ORDER BY LIST_NUM
+	</select>
+
+	<insert id="insertList" >
+		<selectKey resultType="co.dc.example.ajax.service.TodoVO"
+			keyProperty="listNum" order="BEFORE">
+			SELECT SEQ_TODO.NEXTVAL AS
+			listNum FROM DUAL
+		</selectKey>
+		INSERT INTO TODO(LIST_NUM, TITLE, DUEDATE, COMPLETE)
+		VALUES(#{listNum},#{title},#{dueDate}, 'NO' )
+	</insert>
+	
+	<update id="updateList" parameterType="co.dc.example.ajax.service.TodoVO">
+		UPDATE TODO
+		<set>
+			<if test="complete == 'YES'">COMPLETE = #{complete},</if>
+			<if test="complete == 'NO'">COMPLETE = #{complete}</if>
+		</set>
+		WHERE LIST_NUM = #{listNum}
+	</update>
+	<delete id="deleteList" parameterType="co.dc.example.ajax.service.TodoVO">
+		DELETE FROM TODO WHERE LIST_NUM = #{listNum}
+	</delete>
+
+</mapper>

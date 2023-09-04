@@ -151,8 +151,7 @@
 		reply.replyList(noticeId, function(data) { //replyList메소드
 
 			console.log(data);
-			var reply = new Reply();
-
+	
 			//var mils = Date.parse('Aug 29,2023, 9:16:27 AM');
 			//today = new Date(mils);
 			//console.log(today.getDate());
