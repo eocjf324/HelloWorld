@@ -21,4 +21,12 @@
 			}
 		})
 	 }
+	 deleteBook(bkCode, callback){
+		  $.ajax({
+			url: "./AjaxDeleteBook.do?bkCode="+bkCode,
+			success: function(data) {
+				callback(data);
+			}
+		})
+	 }
  }

@@ -5,5 +5,12 @@
 		SELECT * 
 		FROM BOOK
 	</select>
+	<insert id="insertBook" parameterType="co.dc.test.book.service.BookVO">
+		INSERT INTO BOOK
+		VALUES (#{bkCode},#{bkTitle},#{bkAuthor},#{bkPress},#{bkPrice})
+	</insert>
 	
+	<delete id="deleteBook" parameterType="co.dc.test.book.service.BookVO">
+		DELETE FROM BOOK WHERE BK_CODE = #{bkCode}
+	</delete>
 </mapper>
