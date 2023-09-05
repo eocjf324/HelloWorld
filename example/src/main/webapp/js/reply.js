@@ -27,7 +27,6 @@ class Reply {
 		})
 	}
 
-
 	//댓글등록. 파라미터: 게시글번호, 댓글내용, 댓글작성자, 
 	/*replyAdd(param = { noticeId, reply, replayer }, callback, errorcall) {
 		//$.post("AjaxReplyAdd.do", param, function(data) {//post(url,param)

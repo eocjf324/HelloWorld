@@ -144,8 +144,7 @@
 
 	<script>
 		var noticeId = '<c:out value="${n.noticeId}" />';
-		console.log('notice: ', noticeId);
-
+	
 		var reply = new Reply();
 
 		reply.replyList(noticeId, function(data) { //replyList메소드

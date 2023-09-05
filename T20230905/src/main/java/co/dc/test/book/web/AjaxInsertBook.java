@@ -1,4 +1,4 @@
-package co.dc.example.ajax.web;
+package co.dc.test.book.web;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,34 +13,40 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import co.dc.example.ajax.service.TodoService;
-import co.dc.example.ajax.service.TodoVO;
-import co.dc.example.ajax.serviceImpl.TodoServiceImpl;
+import co.dc.test.book.service.BookService;
+import co.dc.test.book.service.BookVO;
+import co.dc.test.book.serviceImpl.BookServiceImpl;
 
 
-@WebServlet("/AjaxDeleteList.do")
-public class AjaxDeleteList extends HttpServlet {
+@WebServlet("/AjaxinsertBook.do")
+public class AjaxInsertBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AjaxDeleteList() {
+    
+    public AjaxInsertBook() {
         super();
+       
     }
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BookService service = new BookServiceImpl();
+		BookVO vo = new BookVO();
 		
-		TodoService service = new TodoServiceImpl();
-		TodoVO vo = new TodoVO();
-		
-		System.out.println(request.getParameter("listNum"));
-		vo.setListNum(Integer.parseInt(request.getParameter("listNum")));
+		vo.setBkCode(request.getParameter("code"));
+		vo.setBkTitle(request.getParameter("title"));
+		vo.setBkAuthor(request.getParameter("author"));
+		vo.setBkPress(request.getParameter("press"));
+		vo.setBkPrice(Integer.parseInt(request.getParameter("price")));
+	
 		
 		Map<String, Object> map = new HashMap<>();
 
-		if (service.deleteList(vo)) {
+		if (service.insertBook(vo)) {
 			map.put("returnCode", "Success");
 			map.put("result", vo);
 		} else {
 			map.put("returnCode", "Fail");
-			map.put("result", "삭제 중 에러.");
+			map.put("result", "등록 중 에러.");
 		}
 
 		Gson gson = new GsonBuilder().create();
@@ -48,10 +54,12 @@ public class AjaxDeleteList extends HttpServlet {
 
 		response.setContentType("text/json;charset=utf-8");
 		response.getWriter().print(json);
-
+	
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 

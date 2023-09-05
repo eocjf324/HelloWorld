@@ -157,7 +157,7 @@
 				temp.attr('data-rno', data[i].listNum);
 				temp.text(data[i].title + " " + data[i].dueDate);
 
-				if (data[i].complete == 'YES') {
+				if (data[i].complete === 'YES') {
 					$("ul li").toggleClass('checked');
 				}
 				$('#myUL').append(temp);
@@ -206,9 +206,9 @@
 
 			var listNum = $(this).data('rno');
 			if ($(this).hasClass('checked')) {
-				var complete = "NO";
+				var complete = 'NO';
 			} else {
-				var complete = "YES";
+				var complete = 'YES';
 			}
 
 			param = {listNum, complete};

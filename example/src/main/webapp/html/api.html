@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="sidos" id ="">
+    </select>
+    <button name="delBtn">선택삭제</button>
+    <h3>센터목록</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>시도</th>
+                <th>센터명</th>
+                <th>연락처</th>
+                <th>주소</th>
+                <th><input type ="checkbox"></th>
+            </tr>
+        </thead>
+        <tbody id="list">
+            <tr>
+
+            </tr>     
+        </tbody>    
+
+    </table>
+    
+
+    <script>
+        let url = `https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=Ji4zaD6OqazmOVkq3cGoI8rJar5LzgNNGxntD3hf7E6DVUsGTNke1cEAs%2FF4vfc%2FVTFDyirSwQaR%2B2J4P3Jisg%3D%3D`;
+        
+        let totalData = [];
+        
+        fetch(url)
+        .then(resolve => resolve.json())
+        .then(centerInit)
+        .catch(console.log);
+
+        function centerInit(json){
+            let aryData = json.data;
+            totalData = json.data;
+            let sidos = [];
+            aryData.forEach(function (elem,idx) {
+                if(sidos.indexOf(elem.sido) == -1){
+                    sidos.push(elem.sido)
+                }
+            });
+          
+            sidos.forEach(sido => {
+                let opt = document.createElement('option');
+                opt.innerText = sido;
+                document.querySelector('select[name=sidos]').appendChild(opt);
+            })
+
+            //조건에 검색.
+            aryData.forEach((center, idx) => {
+                    if(idx < 5){
+                        document.querySelector('#list').appendChild(makeCenterInfo(center));
+                    }
+            })
+        }
+
+        function makeCenterInfo(center = {}){
+            console.log(center);
+            const fields = ['id','centerName', 'phoneNumber', 'address']
+
+            const tr = document.createElement('tr');
+            
+            fields.forEach(field => {
+				const td = document.createElement('td');
+				if(field == 'id'){ //필드가 id 일 경우 a 링크 생성한다.
+					let ref = document.createElement('a');
+					let name =  center.centerName.substr(6)
+					ref.setAttribute('href', 'map.jsp?lat='+center.lat+ '&lng=' + center.lng + '&centerName=' + name);
+					ref.setAttribute('target','_blank'); //새로운 페이지로 열어준다
+					ref.innerText = center[field];
+					td.appendChild(ref);				
+				}
+				else{
+					  td.innerText = center[field];
+				}          
+                tr.appendChild(td);
+            })
+            //checkbox.
+            const td = document.createElement('td');
+            const chk = document.createElement('input');
+            chk.setAttribute('type','checkbox');
+            td.appendChild(chk);
+            tr.appendChild(td);
+            return tr;
+        }
+
+
+        //시도리스트에 선택 이벤트.
+        document.querySelector('select[name=sidos]').addEventListener('change', centerList);
+
+        function centerList(e){
+            let searchSido = e.target.value;
+            //filter : 반환값이 ture 인 항목을 새로운 배열에 저장.
+            const filterAry = totalData.filter(center => center.sido == searchSido);
+            document.querySelector('#list').innerHTML = ''; ///기존항목을 비워주기
+            filterAry.forEach((center, idx) => {
+                console.log(center.lat, ' ' ,center.lng);
+            
+                document.querySelector('#list').appendChild(makeCenterInfo(center))
+            }
+            );
+
+        }
+        //선택삭제 이벤트.
+        document.querySelector('button[name="delBtn"]').addEventListener('click', delList);
+
+        function delList(){
+           
+            /*document.querySelectorAll('#list tr').forEach(tr => {
+                console.log(tr.querySelector('input[type=checkbox]').checked);
+                if(tr.querySelector('input[type=checkbox]').checked){
+                    tr.remove();
+                }
+            })*/
+            document.querySelectorAll('#list tr input:checked').forEach(input => {
+                input.parentElement.parentElement.remove();
+            })
+        }
+    </script>
+</body>
+</html>
