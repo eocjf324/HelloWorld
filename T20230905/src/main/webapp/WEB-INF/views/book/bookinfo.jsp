@@ -96,11 +96,11 @@ table {
 		})
 		//등록 
 		$('#addBtn').on('click',function () {
-			var code = $("#bk_code").val();
-			var title = $("#bk_title").val();
-			var author = $("#bk_author").val();
-			var press = $("#bk_press").val();
-			var price = $("#bk_price").val();
+			const code = $("#bk_code").val();
+			const title = $("#bk_title").val();
+			const author = $("#bk_author").val();
+			const press = $("#bk_press").val();
+			const price = $("#bk_price").val();
 			
 			param = {code, title, author, press, price};
 
